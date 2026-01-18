@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="itext">
+        Hello, World!
+    </p>
+    <label for="">
+        <input type="text" id="inputType">
+        <button>Click me</button>
+    </label>
+    <script>
+        var button = document.querySelector("button");
+        var input = document.getElementById("inputType");
+        var paragraph = document.getElementById("itext");
+
+        button.addEventListener("click", function() {
+            paragraph.textContent = input.value;
+        });
+
+        
+        console.log(button);
+    </script>
+</body>
+</html>
