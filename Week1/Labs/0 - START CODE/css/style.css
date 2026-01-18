@@ -93,9 +93,13 @@ z
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  
+  
 }
 
+.addList {
+  list-style: none;
+}
 #listCon {
   display: flex;
   justify-content: space-between;

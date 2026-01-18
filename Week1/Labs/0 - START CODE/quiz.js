@@ -65,7 +65,7 @@ function renderQuestion() {
   // Render the current question on the quiz view
   // question[0]
   // for(let idx = 0; idx < questions.length(); idx++) {
-    dom_quiz.innerHTML = `
+  dom_quiz.innerHTML = `
     <div style="display: flex; flex-direction: column;">
       <div id="question" style="font-size: 22px">${questions[idx].title}</div>
       <div id="choices" style="font-size: 20px">
@@ -74,34 +74,27 @@ function renderQuestion() {
         <div class="choice" id="C" onclick = onPlayerSubmit('C')>${questions[idx].choiceC}</div>
         <div class="choice" id="D" onclick = onPlayerSubmit('D')>${questions[idx].choiceD}</div>
       </div>
-      <div class="nextQ">
-        <button class="backBtn">Back</button>
-        <button class="nextBtn">Next</button>
-      </div>
       
     </div>
     `;
-  }
-  // }
+}
+// }
 
 
 
 function onPlayerSubmit(answer) {
-  const choice = document.querySelector(".choice");
-  const backBtn = document.querySelector(".backBtn");
-  const nextBtn = document.querySelector(".nextBtn");
-  
+
   // Update the score, display the next question or the score view
-  if(answer === questions[idx].correct) {
-    score ++;
+  if (answer === questions[idx].correct) {
+    score++;
     console.log(score);
   } else {
     score += 0;
-     console.log(score);
+    console.log(score);
   }
   idx++;
-  (idx < questions.length)? renderQuestion() : renderSCore();
-  
+  (idx < questions.length) ? renderQuestion() : renderSCore();
+
 }
 
 function renderSCore() {
@@ -111,19 +104,19 @@ function renderSCore() {
 
   hide(dom_quiz);
   show(dom_score);
-  score = score/questions.length * 100;
+  score = score / questions.length * 100;
   //Takes 2 Decimal
   score = Math.round(score * 100) / 100;
-  
+
   const emoji = document.querySelector(".emoji");
   const text = document.querySelector(".text");
-  if(score < 20) {
+  if (score < 20) {
     emoji.textContent = "🥲";
     text.textContent = score;
-  } else if(score > 20 && score < 40) {
+  } else if (score > 20 && score < 40) {
     emoji.textContent = "😭";
     text.textContent = score;
-  } else if(score > 40 && score < 80) {
+  } else if (score > 40 && score < 80) {
     emoji.textContent = "💀";
     text.textContent = score;
   } else if (score > 80) {
@@ -136,14 +129,23 @@ function renderSCore() {
 const ovl = document.querySelector(".popupContainer");
 const dom_edits = document.querySelector("#editQ");
 const dom_add = document.querySelector("#addQ");
+
+
 function doAdd() {
   show(ovl);
+  show(dom_add);
+  hide(dom_edits)
+
   ovl.addEventListener("click", () => {
+    hide(dom_add);
     hide(ovl);
   });
 }
+
 function doEdit() {
   show(ovl);
+  hide(dom_add);
+  show(dom_edits);
 
   dom_edits.innerHTML = `
     <h4>Editing Questions</h4>
@@ -165,18 +167,18 @@ function doEdit() {
     `;
 
     li.querySelector(".editBtn").addEventListener("click", (e) => {
-      console.log("Edit:", idx);
+      alert("Unable to edit yet");
     });
 
     li.querySelector(".deleteBtn").addEventListener("click", (e) => {
       questions.splice(idx, 1);
-      doEdit(); 
+      doEdit();
     });
 
     ul.appendChild(li);
   });
+  ovl.addEventListener("click", () => hide(ovl));
 
-  ovl.onclick = () => hide(ovl);
 }
 
 
