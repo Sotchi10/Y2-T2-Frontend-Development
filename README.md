@@ -49,21 +49,9 @@ Each **Week folder** may contain:
 
 ---
 
-## How to Run the Files
-
-1. Clone or download the repository
-2. Open any `Week-*` folder
-3. Open the `.html` file in a web browser
-
-No external dependencies are required unless specified inside a particular folder.
-
----
-
 ## Notes for Lecturer
 
-* This repository reflects **learning progress**, not production-level code
-* Code quality improves over time as concepts are learned
-* Mistakes or refactored attempts are intentionally kept to show growth
+* The project is organized into weekly branches, allowing you to explore the progress of each week individually.
 
 ---
 
