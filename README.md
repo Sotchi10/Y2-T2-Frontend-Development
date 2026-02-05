@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains **all frontend development practices completed over a 10-week learning period**. It is designed to demonstrate my **progress, consistency, and understanding of frontend concepts** through structured weekly exercises, mini-projects, and experiments.
+This repository contains **all frontend development practices completed over a 10-week learning period**. It is designed to demonstrate my **progress, and understanding of frontend concepts** through structured weekly exercises, mini-projects, and experiments.
 
 The purpose of this repository is **academic** and is submitted for **lecturer review and evaluation**.
 
@@ -15,7 +15,6 @@ Throughout these 10 weeks, the goals were to:
 * Understand core **frontend development fundamentals**
 * Practice **HTML, CSS, and JavaScript** through hands-on tasks
 * Apply concepts in **small projects and exercises**
-* Build problem-solving and code-organization skills
 * Gradually improve code readability and structure
 
 ---
