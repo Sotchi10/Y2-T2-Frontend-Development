@@ -19,8 +19,7 @@ function App() {
     return valueInDollars * DOLLAR_TO_RIEL_RATIO;
   }
   function increasePrice() {
-      // TODO Update the value in dollars by increasing it by 5
-      setValueDollars(valueDollars+5);
+    // TODO Update the value in dollars by increasing it by 5
   }
   return (
     <main>
