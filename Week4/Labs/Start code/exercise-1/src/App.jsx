@@ -12,9 +12,11 @@ function Header() {
 function App() {
   return (
     <>
+    
       <Header></Header>
       <main className="block">
-        <p>
+        
+        <p>                     
           React (also known as React.js or ReactJS) is a free and open-source
           front-end JavaScript library for building user interfaces based on
           components. It is maintained by Meta (formerly Facebook) and a
@@ -26,6 +28,7 @@ function App() {
           functionality.
         </p>
         <p>You can find the React doc at https://react.dev/</p>
+        
       </main>
     </>
   );
