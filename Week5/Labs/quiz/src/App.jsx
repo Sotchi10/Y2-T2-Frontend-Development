@@ -21,7 +21,6 @@ function App() {
   function increasePrice() {
       // TODO Update the value in dollars by increasing it by 5
       setValueDollars(valueDollars+5);
-      return valueDollars;
   }
   return (
     <main>
