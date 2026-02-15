@@ -13,12 +13,16 @@ export function User({ user }) {
   );
 }
 
+const teachers = ALL_PNV_TEACHERS;
 function App() {
   return (
     <div id="app">
       <h1>PNV Team !!</h1>
       <p>Here are some PNV trainers and educators, do you know them?</p>
-      <User /> {/* How to loop on ALL_PNV_TEACHERS list ? */}
+      {teachers.map((t) => (
+        <User user={t}/>  
+      ))}
+
     </div>
   );
 }

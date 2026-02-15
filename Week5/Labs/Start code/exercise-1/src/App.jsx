@@ -1,4 +1,5 @@
 import React from "react";
+//import { userData } from './App';
 
 export const userData = {
   firstName: "Ronan", // feel free to replace the name value
@@ -10,8 +11,8 @@ export const userData = {
 export function User() {
   return (
     <div id="user" data-testid="user">
-      <h2>TODO: FIRST NAME LAST NAME</h2>
-      <p>TODO: TITLE</p>
+      <h2>{userData.firstName} {userData.lastName}</h2>
+      <p>{userData.title}</p>
     </div>
   );
 }
