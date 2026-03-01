@@ -109,3 +109,19 @@ body {
 .warning {
   color: var(--secondary-color);
 }
+
+.statistic {
+  display: flex;
+  background-color: white;
+  border-radius: 10px;
+  color: black;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.statistic .stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
