@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function StuffForm() {
+export default function StuffForm({onAdd}) {
   const [name, setName] = React.useState("");
   const [price, setPrice] = React.useState("");
 
@@ -8,6 +8,8 @@ export default function StuffForm() {
     e.preventDefault();
 
     onAdd(name, price);
+    setName("");
+    setPrice("");
   }
 
   return (
