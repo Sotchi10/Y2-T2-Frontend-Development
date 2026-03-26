@@ -17,7 +17,7 @@ function createLogAttack(isPlayer, damage) {
   return {
     isPlayer: isPlayer,
     isDamage: true,
-    text: ` takes ${damage} damages`,
+    value: ` takes ${damage} damages`,
   };
 }
 
@@ -26,7 +26,7 @@ function createLogHeal(healing) {
   return {
     isPlayer: true,
     isDamage: false,
-    text: ` heal ${healing} life points`,
+    value: ` heal ${healing} life points`,
   };
 }
 
@@ -35,12 +35,11 @@ function Game() {
   // STATES & VARIABLES
   // ----------------------------------------------------------------------------------------------------------
   const [gameover, setGameover] = useState(false);
-  const [isAliveP, setLifeP] = useState(true);
-  const [isAliveM, setLifeM] = useState(true);
   const [playerHealth, setHealthP] = useState(100);
   const [monsterHealth, setHealthM] = useState(100);
   const [healing, setHealth] = useState(getRandomValue(10, 20));
   const [attackCounter, setCount] = useState(0);
+  const [logs, setLogs] = React.useState([]);
   // ----------------------------------------------------------------------------------------------------------
   // BUTTONS EVENT FUNCTIONS
   // ----------------------------------------------------------------------------------------------------------
@@ -52,20 +51,15 @@ function Game() {
   function gameState(newMonsterHealth, newPlayerHealth) {
     if (
       newPlayerHealth <= 0 &&
-      newMonsterHealth <= 0 &&
-      !(isAliveM && isAliveP)
+      newMonsterHealth <= 0
     ) {
       console.log("Draw");
-      setLifeM((isAliveM) => false);
-      setLifeP((isAliveP) => false);
       setGameover(true);
-    } else if (newPlayerHealth <= 0 && isAliveM) {
+    } else if (newPlayerHealth <= 0) {
       console.log("Lose");
-      setLifeP((isAliveP) => false);
       setGameover(true);
-    } else if (newMonsterHealth <= 0 && isAliveP) {
+    } else if (newMonsterHealth <= 0) {
       console.log("Win");
-      setLifeM((isAliveM) => false);
       setGameover(true);
     }
   }
@@ -86,6 +80,11 @@ function Game() {
 
     applyDMG(newMonsterHealth, newPlayerHealth);
     gameState(newMonsterHealth, newPlayerHealth);
+    setLogs((prev) => [
+      ...prev,
+      createLogAttack(false, damageToMonster), // player hits monster
+      createLogAttack(true, damageToPlayer), // monster hits player
+    ]);
   };
 
   const special = () => {
@@ -101,6 +100,11 @@ function Game() {
 
     applyDMG(newMonsterHealth, newPlayerHealth);
     gameState(newMonsterHealth, newPlayerHealth);
+    setLogs((prev) => [
+      ...prev,
+      { isPlayer: true, text: ` used SPECIAL for ${damageToMonster}` },
+      createLogAttack(true, damageToPlayer),
+    ]);
   };
 
   const heal = () => {
@@ -113,16 +117,59 @@ function Game() {
     let newPlayerHealth = playerHealth + healing - damageToPlayer;
     newPlayerHealth = Math.max(0, Math.min(newPlayerHealth, 100));
 
+    applyDMG(monsterHealth, newPlayerHealth);
     gameState(newMonsterHealth, newPlayerHealth);
+    setLogs((prev) => [
+      ...prev,
+      createLogHeal(healing),
+      createLogAttack(true, damageToPlayer),
+    ]);
   };
 
   const selfKill = (damage) => {
-    console.log("killing " + damage);
+    const damageToPlayer = 100;
+    const damageToMonster = 0;
+
+    const newPlayerHealth = playerHealth - damageToPlayer;
+    const newMonsterHealth = monsterHealth - damageToMonster;
+
+    applyDMG(newMonsterHealth, newPlayerHealth);
+    gameState(newMonsterHealth, newPlayerHealth);
+    setLogs((prev) => [
+      ...prev,
+      { isPlayer: true, text: ` killed self for ${damageToPlayer}` },
+      createLogAttack(true, damageToPlayer),
+    ]);
+    setGameover(true);
   };
 
   // ----------------------------------------------------------------------------------------------------------
   // JSX FUNCTIONS
   // ----------------------------------------------------------------------------------------------------------
+  function restartGame() {
+    setHealthM(100);
+    setHealthP(100);
+    setLogs([]);
+    setCount(0);
+    setGameover(false);
+    setLifeM(true);
+    setLifeP(true);
+  }
+  function showGameResult() {
+    if (!gameover) {
+      return null;
+    }
+
+    let title = "You lost!";
+    if (playerHealth === 0 && monsterHealth === 0) {
+      title = "It's a draw!";
+    } else if (monsterHealth === 0) {
+      title = "You won!";
+    }
+
+    return <Gameover title={title} restartGame={restartGame} />;
+  }
+
   // ----------------------------------------------------------------------------------------------------------
   // MAIN  TEMPLATE
   // ----------------------------------------------------------------------------------------------------------
@@ -131,17 +178,20 @@ function Game() {
       <Entity name="Monster" healthWidth={monsterHealth + "%"} />
       <Entity name="Your" healthWidth={playerHealth + "%"} />
 
+      {showGameResult()}
       <section id="controls">
         <button onClick={() => attack()}>ATTACK</button>
-        <button onClick={() => special(getRandomValue(12, 20))}>
+        <button
+          style={{ backgroundColor: attackCounter < 3 ? "grey" : "" }}
+          onClick={() => special()}
+        >
           SPECIAL !
         </button>
         <button onClick={() => heal(getRandomValue(8, 12))}>HEAL</button>
         <button onClick={() => selfKill(100)}>KILL YOURSELF</button>
       </section>
 
-      <Logs />
-      <Gameover />
+      <Logs logs={logs} />
     </>
   );
 }

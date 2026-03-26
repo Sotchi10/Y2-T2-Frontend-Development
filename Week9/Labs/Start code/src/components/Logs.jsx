@@ -1,28 +1,30 @@
-import React from "react";
-import { useState } from "react";
-function Logs() {
+function Logs({ logs }) {
   return (
-    <>
-      <section id="log" className="container">
-        <h2>Battle Log</h2>
-        <ul>
-          <li>
-            <span>Player</span>
+    <section id="log" className="container">
+      <h2>Battle Log</h2>
+
+      <ul>
+        {logs.map((log, index) => (
+          <li key={index}>
+            <span>{log.isPlayer ? "Player" : "Monster"}</span>
+
             <span>
-              {" "}
-              heals for <span className="log--heal">12</span>
+              {log.isDamage ? (
+                <>
+                  {" "}
+                  attacks for <span className="log--damage">{log.value}</span>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  heals for <span className="log--heal">{log.value}</span>
+                </>
+              )}
             </span>
           </li>
-          <li>
-            <span>Monster</span>
-            <span>
-              {" "}
-              attaked for <span className="log--damage">45</span>
-            </span>
-          </li>
-        </ul>
-      </section>
-    </>
+        ))}
+      </ul>
+    </section>
   );
 }
 export default Logs;

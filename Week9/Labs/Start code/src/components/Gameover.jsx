@@ -1,14 +1,13 @@
 import React from "react";
 import { useState } from "react";
 
-function Gameover({title, restartGame}) {
+function Gameover({ title, restartGame }) {
   return (
     <>
-      <section className="container" style={{display: 'none'}}>
+      <section className="container">
         <h2>Game Over!</h2>
-        <h3>You lost!</h3>
-        <h3>You won!</h3>
-        <button>Start New Game</button>
+        <h3>{title}</h3>
+        <button onClick={restartGame}>Start New Game</button>
       </section>
     </>
   );
